@@ -43,5 +43,4 @@ if __name__ == "__main__":
     r3131.get_idn_str()
     print(r3131.get_center_frequency())
     r3131.plot_trace_a()
-    plt.savefig("test.png")
     #r3131.get_binary_trace_data()
