@@ -4,6 +4,8 @@ import time
 # ET5410 and other east tester load testing driver. Built off pyvisa (py-visa backend).
 # Channel number notes. Channels are referred to "1" and "2" in integer forms i.e call function with channel =1 or 2
 # a lot of time delays will be needed when a write is sent then a query of the same register is desired. try anywhere between 200ms and 1s
+#
+# Programming Manual from: https://www.eevblog.com/forum/testgear/east-tester-et5410-et5420-et5411-et54-series-software/?action=dlattach;attach=1030336
 class et5410_driver:
     def __init__(self,resource_string):
         self.rm = pyvisa.ResourceManager()
@@ -51,6 +53,13 @@ class et5410_driver:
         return self.query("MEAS%d:VOLTAGE?"%channel)
     def get_measured_current(self,channel):
         return self.query("MEAS%d:CURRENT?"%channel)
+    # Battery Subsystem
+    def set_mode_battery(self,channel,mode):
+        self.query(":BATT%d:MODE %s"%(channel,mode))
+    def get_mode_battery(self,channel):
+        return self.query(":BATT%d:MODE?"%(channel))
+    def get_battery_capacity(self,channel):
+        return self.query(":BATT%d:CAPA?"%(channel))
     # Channel Subsystem
     def get_channel_mode(self,channel):
         return self.query(":CH%d:MODE?"%channel)
