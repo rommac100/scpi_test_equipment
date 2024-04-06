@@ -9,3 +9,11 @@ https://github.com/vc12345679/NI_GPIB_ENET_Py3
  - e3631 (partial implementation)
  - ps2521 (partial implementation)
  - et5410 (partial implementation)
+ - hp6632a (partial implementation)
+ - hp33401a (partial implementation)
+
+
+# Install instructions
+ - go into the libnet_wrapper and install using setup.py
+ - go into libnet_drivers and install using setup.pyA
+

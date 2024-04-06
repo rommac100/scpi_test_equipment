@@ -1,13 +1,13 @@
-from libnet_wrapper import GPIBDriver 
+from libnet_wrapper import libnet_wrapper 
 import struct
 import matplotlib.pyplot as plt
 import numpy as np
 
-class e3631_driver:
+class hp6632_driver:
     def __init__(self, host, addr):
         self.host = host
         self.addr = addr
-        self.gpib_driver = GPIBDriver(self.host,self.addr)
+        self.gpib_driver = libnet_wrapper.GPIBDriver(self.host,self.addr)
     def query(self,command_str):
         return self.gpib_driver.query(command_str.encode("UTF-8"))
     def read(self):
@@ -15,7 +15,7 @@ class e3631_driver:
     def write(self,command_str):
         self.gpib_driver.write(command_str.encode("UTF-8"))
     def get_idn_str(self):
-        idn_str = self.query("*IDN?").decode()
+        idn_str = self.query("ID?").decode()
         print(idn_str)
         return idn_str
     def select_output(self,output_number):
@@ -36,7 +36,6 @@ class e3631_driver:
         return self.query("MEASURE:VOLTAGE?")
     def meas_curr_current(self):
         return self.query("MEASURE:CURRENT?")
-    
 if __name__ == "__main__":
-    e3631 = e3631_driver("10.2.0.9",3)
-    e3631.get_idn_str()
+    hp6632 = hp6632_driver("10.2.0.9",6)
+    hp6632.get_idn_str()
