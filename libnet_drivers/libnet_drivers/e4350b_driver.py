@@ -2,8 +2,9 @@ from libnet_wrapper import libnet_wrapper
 import struct
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 
-class e3631_driver:
+class e4350b_driver:
     def __init__(self, host, addr):
         self.host = host
         self.addr = addr
@@ -18,25 +19,36 @@ class e3631_driver:
         idn_str = self.query("*IDN?")
         print(idn_str)
         return idn_str
-    def select_output(self,output_number):
-        self.write("INSTRUMENT:NSELECT %d"%output_number)
-    def get_selected_output(self):
-        return self.query("INSTR:NSEL?")
+    # Setting outputs
     def set_output_on(self):
-        self.write("OUTPUT:STATE ON")
+        self.write("OUTP ON")
     def set_output_off(self):
-        self.write("OUTPUT:STATE OFF")
+        self.write("OUTP OFF")
     def get_output_state(self):
         return self.query("OUTPUT:STATE?")
     def set_output_voltage(self,volt):
-        self.write("SOURCE:VOLTAGE %.2f"%volt)
-    def get_output_voltage(self):
-        return self.query("SOURCE:VOLT?")
+        self.write("VOLT:LEV:IMM %.2f"%volt)
+    def set_output_current(self,current):
+        self.write("CURR:LEV:IMM %.2f"%current)
+    # Measurement Functions
     def meas_curr_voltage(self):
         return self.query("MEASURE:VOLTAGE?")
     def meas_curr_current(self):
         return self.query("MEASURE:CURRENT?")
+    # Current Mode Settings
+    def set_current_mode_fixed(self):
+        self.write("SOURCE:CURRENT:MODE FIXED")
+    def set_current_mode_simulator(self):
+        self.write("SOURCE:CURRENT:MODE SAS")
+    def get_output_voltage(self):
+        return self.query("SOURCE:VOLT?")
+    def get_current_mode(self):
+        return self.query("SOURCE:CURRENT:MODE?")
     
 if __name__ == "__main__":
-    e3631 = e3631_driver("10.2.0.9",3)
-    e3631.get_idn_str()
+    e4350b = e4350b_driver("10.2.0.9",7)
+    e4350b.get_idn_str()
+    e4350b.set_current_mode_simulator()
+    print(e4350b.get_current_mode())
+    e4350b.set_current_mode_fixed()
+    print(e4350b.get_current_mode())

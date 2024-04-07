@@ -14,7 +14,7 @@ class hp34401_driver:
         time.sleep(delay)
         return self.read()
     def read(self):
-        return self.gpib_driver.read().decode()
+        return self.gpib_driver.read()
     def write(self,command_str):
         self.gpib_driver.write(command_str.encode("UTF-8"))
     def meas_dc_voltage(self):

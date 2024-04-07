@@ -10,9 +10,9 @@ class hp6632_driver:
         self.addr = addr
         self.gpib_driver = libnet_wrapper.GPIBDriver(self.host,self.addr)
     def query(self,command_str):
-        return self.gpib_driver.query(command_str.encode("UTF-8")).decode()
+        return self.gpib_driver.query(command_str.encode("UTF-8"))
     def read(self):
-        return self.gpib_driver.read().decode()
+        return self.gpib_driver.read()
     def write(self,command_str):
         self.gpib_driver.write(command_str.encode("UTF-8"))
     def get_idn_str(self):

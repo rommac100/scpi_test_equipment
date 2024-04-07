@@ -322,7 +322,7 @@ class GPIBDriver:
 
     def read(self):
         status, resp = self.l.ibrd(self.ud, 4096)
-        return resp
+        return resp.decode()
 
     def query(self, s):
         self.write(s)
