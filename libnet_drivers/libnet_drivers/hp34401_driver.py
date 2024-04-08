@@ -18,7 +18,7 @@ class hp34401_driver:
     def write(self,command_str):
         self.gpib_driver.write(command_str.encode("UTF-8"))
     def meas_dc_voltage(self):
-        return self.query("MEASure:VOLTage:DC?")
+        return float(self.query("MEASure:VOLTage:DC?"))
     def meas_dc_current(self):
         return float(self.query("MEASURE:CURRENT:DC?"))
     def get_configuration(self):

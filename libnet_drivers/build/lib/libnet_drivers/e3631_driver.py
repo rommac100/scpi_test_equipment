@@ -15,7 +15,7 @@ class e3631_driver:
     def write(self,command_str):
         self.gpib_driver.write(command_str.encode("UTF-8"))
     def get_idn_str(self):
-        idn_str = self.query("*IDN?").decode()
+        idn_str = self.query("*IDN?")
         print(idn_str)
         return idn_str
     def select_output(self,output_number):

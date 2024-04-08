@@ -22,7 +22,9 @@ class et5410_driver:
     def beep_instr(self):
         self.write(":BEEP")
     def query(self,command_str):
-        return self.instr.query(command_str) 
+        self.write(command_str)
+        time.sleep(.5)
+        return self.read()
     def read(self):
         return self.instr.read() 
     def write(self,command_str):
@@ -39,7 +41,7 @@ class et5410_driver:
         self.query("CURR%d:CC %.2f"%(channel,current))
     def set_max_current_protection(self,channel,max_current):
         self.query("CURR%d:IMAX %.2f"%(channel,max_current))
-    def get_max_current_protection(self,channel,max_current):
+    def get_max_current_protection(self,channel):
         return self.query("CURR%d:IMAX?"%channel)
     # Voltage Subsystem
     def set_max_voltage_protection(self,channel,voltage_max):

@@ -9,9 +9,9 @@ class ps2521_driver:
         self.addr = addr
         self.gpib_driver = libnet_wrapper.GPIBDriver(self.host,self.addr)
     def query(self,command_str):
-        return self.gpib_driver.query(command_str.encode("UTF-8")).decode()
+        return self.gpib_driver.query(command_str.encode("UTF-8"))
     def read(self):
-        return self.gpib_driver.read().decode()
+        return self.gpib_driver.read()
     def write(self,command_str):
         self.gpib_driver.write(command_str.encode("UTF-8"))
     def get_idn_str(self):
@@ -40,12 +40,18 @@ class ps2521_driver:
         return self.query("MEASURE:VOLTAGE?")
     def meas_curr_current(self):
         return self.query("MEASURE:CURRENT?")
+    def set_ovp_voltage(self,voltage):
+        self.write("SOURCE:VOLTAGE:PROTECTION %.2f"%voltage)
+    def get_ovp_voltage(self):
+        return self.query("SOURCE:VOLTAGE:PROTECTION?")
 if __name__ == "__main__":
-    ps2521 = ps2521_driver("10.2.0.9",6)
+    ps2521 = ps2521_driver("10.2.0.9",9)
     ps2521.get_idn_str()
     ps2521.select_output(1)
     ps2521.set_output_voltage(6)
     ps2521.set_output_current(.3)
+    ps2521.set_ovp_voltage(7)
+    print(ps2521.get_ovp_voltage())
     print(ps2521.get_output_current())
     print(ps2521.get_output_voltage())
     ps2521.set_output_on()
