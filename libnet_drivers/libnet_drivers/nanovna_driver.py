@@ -66,11 +66,23 @@ class nanovna_driver:
 
 
 if __name__ == '__main__':
-    nanovna = nanovna_driver('ASRL/dev/ttyDUM::INSTR')
-    nanovna.set_if_bw(IFBW.IFBW_1700HZ)
-    nanovna.get_if_bw()
-    #nanovna.set_npoints(60)
-    #nanovna.set_start_freq(1e6)
-    #nanovna.set_stop_freq(1e9)
-    #nanovna.set_step_hz(1e6)
+    nanovna = nanovna_driver('ASRL/dev/ttyACM0::INSTR')
+    nanovna.set_start_freq(100e6)
+    nanovna.set_stop_freq(1e9)
+    nanovna.set_npoints(3000)
+    data = nanovna.get_s11()
+    print(data)
+    data.plot_s_db(0,0)
+    plt.show()
+    #nanovna.set_if_bw(IFBW.IFBW_10000HZ)
+    """
+    data = nanovna.get_s11()
+    data[0].write_touchstone("/mnt/main_documents/lab_data/test_if/test_ifbw_800hz.s2p")
+    nanovna.set_if_bw(IFBW.IFBW_10000HZ)
+    data.plot_s_db(0,0)
+    data = nanovna.get_s11()
+    data.write_touchstone("/mnt/main_documents/lab_data/test_if/test_ifbw_10000hz.s2p")
+    data.plot_s_db(0,0)
+    plt.show()
+    """
     #nanovna.perform_1port_cal("/mnt/main_documents/lab_data/cal_standard/test/")
