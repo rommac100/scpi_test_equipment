@@ -21,16 +21,8 @@ class r3131_driver:
         return self.gpib_driver.read()
     def write(self,command_str):
         self.gpib_driver.write(command_str.encode("UTF-8"))
-    def read_binary_data(self,command):
-        self.write(command)
-        time.sleep(1)
-        data = self.read()
-        data_out = []
-        print('test')
-        #while (len(data) < 5):
-        #    data_out.append(data)
-        #    data = self.read()
-
+    def read_binary_data(self,command_str):
+        data_out = self.gpib_driver.read_binary_data(command_str.encode("UTF-8"))
         return data_out
     # returns int array
     def get_ascii_trace_data(self):
@@ -143,16 +135,17 @@ class r3131_driver:
 if __name__ == "__main__":
     r3131 = r3131_driver("10.2.0.9",8)
     r3131.get_idn_str()
-    r3131.set_start_freq(98.75e6)
-    r3131.set_stop_freq(100.25e6)
-    print(r3131.get_start_freq()/1e6)
-    print(r3131.get_stop_freq()/1e6)
+    print(len(r3131.get_binary_trace_data()))
+    #r3131.set_start_freq(98.75e6)
+    #r3131.set_stop_freq(100.25e6)
+    #print(r3131.get_start_freq()/1e6)
+    #print(r3131.get_stop_freq()/1e6)
     #print(r3131.get_center_frequency())
     #data = r3131.get_ascii_trace_data()
     #print(r3131.gpib_driver.query(b'ST?'))
-    r3131.turn_on_marker(1)
-    r3131.marker_pk_search()
-    print(r3131.get_ref_level())
-    print(r3131.get_marker_frequency())
-    print(r3131.get_marker_level())
-    r3131.plot_trace_a(filename_image="test.png",filename_csv="test.csv",show_plot=1)
+    #r3131.turn_on_marker(1)
+    #r3131.marker_pk_search()
+    #print(r3131.get_ref_level())
+    #print(r3131.get_marker_frequency())
+    #print(r3131.get_marker_level())
+    #r3131.plot_trace_a(filename_image="test.png",filename_csv="test.csv",show_plot=1)
