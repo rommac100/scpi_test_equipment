@@ -312,16 +312,21 @@ class GPIBDriver:
 
     def read_binary_data(self,s):
         self.write(s)
-        data = self.read()
+        data = self.read_raw()
         data_out = bytearray()
         while (len(data) > 0):
             data_out.extend(data)
-            data = self.read()
-
+            data = self.read_raw()
         return data_out
+
+    def read_raw(self):
+        status, resp = self.l.ibrd(self.ud, 4096)
+        print(resp)
+        return resp
 
     def read(self):
         status, resp = self.l.ibrd(self.ud, 4096)
+        print(resp)
         return resp.decode()
 
     def query(self, s):

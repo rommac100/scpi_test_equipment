@@ -21,16 +21,8 @@ class r3131_driver:
         return self.gpib_driver.read()
     def write(self,command_str):
         self.gpib_driver.write(command_str.encode("UTF-8"))
-    def read_binary_data(self,command):
-        self.write(command)
-        time.sleep(1)
-        data = self.read()
-        data_out = []
-        print('test')
-        #while (len(data) < 5):
-        #    data_out.append(data)
-        #    data = self.read()
-
+    def read_binary_data(self,command_str):
+        data_out = self.gpib_driver.read_binary_data(command_str.encode("UTF-8"))
         return data_out
     # returns int array
     def get_ascii_trace_data(self):
