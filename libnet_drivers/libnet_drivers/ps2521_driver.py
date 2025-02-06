@@ -47,13 +47,3 @@ class ps2521_driver:
 if __name__ == "__main__":
     ps2521 = ps2521_driver("10.2.0.9",9)
     ps2521.get_idn_str()
-    ps2521.select_output(1)
-    ps2521.set_output_voltage(6)
-    ps2521.set_output_current(.3)
-    ps2521.set_ovp_voltage(7)
-    print(ps2521.get_ovp_voltage())
-    print(ps2521.get_output_current())
-    print(ps2521.get_output_voltage())
-    ps2521.set_output_on()
-    print(ps2521.meas_curr_voltage())
-    print(ps2521.meas_curr_current())

@@ -40,3 +40,7 @@ class e3631_driver:
 if __name__ == "__main__":
     e3631 = e3631_driver("10.2.0.9",3)
     e3631.get_idn_str()
+    e3631.select_output(2)
+    print(e3631.get_output_voltage())
+    e3631.set_output_on()
+

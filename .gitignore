@@ -2,3 +2,5 @@
 __pycache__
 *.png
 *.egg-info
+examples/*
+examples
